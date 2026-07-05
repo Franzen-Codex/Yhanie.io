@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ID CARD</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+        /* Reset and Page Background */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #ff3c8a; /* Hot Pink Background */
+            font-family: 'Fredoka One', cursive, sans-serif;
+            color: #000;
+            padding: 20px;
+        }
+
+        /* The Main ID Card */
+        .id-card {
+            width: 100%;
+            max-width: 450px;
+            background-color: #d4f4f9; /* Light Blue */
+            border: 4px solid #000;
+            border-radius: 18px;
+            position: relative;
+            padding: 15px 20px;
+            box-shadow: 0 10px 0 rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        /* Thick Outline Helper for text */
+        .thick-outline {
+            text-shadow: 
+                -2px -2px 0 #000,  
+                 2px -2px 0 #000,
+                -2px  2px 0 #000,
+                 2px  2px 0 #000,
+                 0px -3px 0 #000,
+                 0px  3px 0 #000,
+                -3px  0px 0 #000,
+                 3px  0px 0 #000;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #000;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin: 0;
+            display: inline-block;
+            padding: 0 10px;
+        }
+
+        /* Stars */
+        .star {
+            font-size: 1.8rem;
+            display: inline-block;
+            color: black;
+            margin: 0 5px;
+        }
+
+        /* Body Layout */
+        .card-body {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        /* Photo Section - Updated for User Image */
+        .photo-box {
+            flex: 0 0 130px;
+            height: 150px;
+            background-color: #7bcdfa; /* Medium Blue */
+            border: 3px solid #000;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5px;
+            position: relative;
+            overflow: hidden; /* Ensures image stays inside rounded corners */
+        }
+
+        /* User Image Styling */
+        .photo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Crops image to fill the box */
+            border-radius: 6px;
+            /* Optional: Add a slight shadow and tilt to mimic a real photo */
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1);
+            transform: rotate(-2deg); 
+            transition: transform 0.2s;
+        }
+        
+        .photo-box img:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        /* Details Section */
+        .details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 2px;
+        }
+
+        .label {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-right: 5px;
+            color: #000;
+        }
+
+        .value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 
+                -2px -2px 0 #000, 2px -2px 0 #000,
+                -2px  2px 0 #000, 2px  2px 0 #000,
+                 0px -3px 0 #000, 0px  3px 0 #000;
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+
+        .value-small {
+            font-size: 1rem;
+        }
+
+        /* Special colored text */
+        .text-pink {
+            color: #ff3c8a; /* Pink text color */
+        }
+        
+        /* Chinese Box */
+        .chinese-box {
+            background-color: #7bcdfa;
+            padding: 2px 8px;
+            border-radius: 12px;
+            border: 2px solid #000;
+            color: #fff;
+            font-size: 0.9rem;
+            margin-left: 5px;
+            display: inline-block;
+        }
+
+        /* MBTI Highlight */
+        .mbti-highlight {
+            background-color: #d4f4f9; /* Match card bg to blend */
+            padding: 0 4px;
+            color: #000;
+            text-shadow: none; /* Remove outline for highlight */
+            border: 2px solid #000;
+            border-radius: 12px;
+            padding: 0 10px;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 15px;
+            border-top: 3px solid #000;
+            padding-top: 8px;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 0.8rem;
+            color: #000;
+            opacity: 0.8;
+            word-spacing: 8px;
+            font-family: monospace;
+        }
+
+        /* Decorative Bottom Body */
+        .bottom-bg {
+            position: fixed;
+            bottom: -10vh;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80vw;
+            max-width: 600px;
+            height: 50vh;
+            background-color: #fff;
+            border-radius: 50% 50% 0 0;
+            z-index: 1;
+        }
+        .bottom-bg::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 25%;
+            width: 25%;
+            height: 50%;
+            background-color: rgba(255, 60, 138, 0.6);
+            border-radius: 50%;
+        }
+        .bottom-bg::after {
+            content: '';
+            position: absolute;
+            top: 30%;
+            right: 25%;
+            width: 20%;
+            height: 40%;
+            background-color: rgba(255, 60, 138, 0.6);
+            border-radius: 50%;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 480px) {
+            .header h1 { font-size: 1.8rem; }
+            .card-body { flex-direction: column; align-items: center; }
+            .photo-box { width: 100%; max-width: 150px; height: 160px; flex: none; }
+            .details { width: 100%; margin-top: 10px; }
+            .row { justify-content: center; margin-bottom: 5px; }
+            .footer { margin-top: 20px; }
+            .chinese-box { margin-top: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Blob -->
+    <div class="bottom-bg"></div>
+
+    <!-- The Card -->
+    <div class="id-card">
+        
+        <!-- Header -->
+        <div class="header">
+            <h1 class="thick-outline">
+                <span class="star">✦</span> ID CARD <span class="star">✦</span>
+            </h1>
+        </div>
+
+        <!-- Content -->
+        <div class="card-body">
+            
+            <!-- Photo Section: YOUR IMAGE GOES HERE -->
+            <div class="photo-box">
+                <!-- 
+                   CHANGE 'yhanie.jpg' to whatever your actual file name is.
+                   Examples: 'my-photo.jpg', 'images/yhanie.jpg', 'profile.jpeg' 
+                -->
+                <img src="/image/yhanie.jpg" alt="ID Photo">
+            </div>
+
+            <!-- Information Section -->
+            <div class="details">
+                <div class="row">
+                    <span class="label">NAME:</span>
+                    <span class="value text-pink">Princess Ariane</span>
+                    <span class="chinese-box">Yhanie</span>
+                </div>
+                
+                <div class="row">
+                    <span class="label">BIRTHDAY:</span>
+                    <span class="value value-small">September 18</span>
+                </div>
+                
+                <div class="row">
+                    <span class="label">AGE:</span>
+                    <span class="mbti-highlight">12</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">GENDER:</span>
+                    <span class="value value-small">FEMALE</span>
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-text">
+                HAVE A NICE DAY ✦ HAVE A NICE DAY ✦ HAVE A NICE DAY
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
